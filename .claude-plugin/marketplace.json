@@ -1,0 +1,15 @@
+{
+  "name": "cc-mods-copy-latest-replies",
+  "description": "Tomy Spagnoletti's Claude Code mod: Copy latest replies.",
+  "owner": {
+    "name": "Tomy Spagnoletti",
+    "url": "https://github.com/TomySpagnoletti"
+  },
+  "plugins": [
+    {
+      "name": "copy-latest-replies",
+      "source": "./",
+      "description": "A button under Claude's last reply that copies everything Claude wrote since your last message, without tool output."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "copy-latest-replies",
+  "displayName": "Copy latest replies",
+  "version": "1.0.0",
+  "description": "A button under Claude's last reply that copies everything Claude wrote since your last message: every reply block, its visible thinking, and the questions it asked with your answers. No tool output.",
+  "author": { "name": "Tomy Spagnoletti", "url": "https://github.com/TomySpagnoletti" },
+  "homepage": "https://github.com/TomySpagnoletti/cc-mods-copy-latest-replies",
+  "repository": "https://github.com/TomySpagnoletti/cc-mods-copy-latest-replies",
+  "license": "MIT",
+  "keywords": ["mod", "copy", "clipboard", "transcript", "replies", "review"]
+}
