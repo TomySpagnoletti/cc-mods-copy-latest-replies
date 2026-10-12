@@ -81,11 +81,35 @@ The mod reads the session's transcript, the JSONL file Claude Code keeps on your
 - **Where blocks split.** Any incoming message opens a new reply block, except a task notification, which the app shows inside the current block. Checked against twenty native copy buttons on a real session: the same 359 paragraphs, in the same order.
 - **Large transcripts.** A transcript can weigh tens of megabytes. The mod finds the last prompt with `grep` and reads from there in chunks.
 
-## Privacy
+## Privacy and permissions
 
-Everything stays on your machine. The mod reads your session's transcript with `find`, `grep`, `wc` and `sed`, and writes to your clipboard through Claude Code, falling back to `pbcopy`, PowerShell, `wl-copy` or `xclip`. It makes no network request.
+Everything stays on your machine. The mod makes no network request, and the only place it sends anything is your clipboard.
 
-You can list what it does before installing: `claude plugin validate` on a clone of this repository prints every event it hooks and every call it makes.
+**What it reads.** Your session's transcript, which holds the conversation, and the session's messages, to know which reply is the last one. To locate the transcript it reads two environment variables, `CLAUDE_CONFIG_DIR` and `HOME`.
+
+**What it sends, and where.** The copied text, to your clipboard, and only when you press the button or run `/copy-latest-replies`. It goes through Claude Code's own copy call. When that call fails on the terminal or the Desktop app, the mod hands the same text to your system's clipboard tool on its standard input.
+
+**Which programs it runs, and why.** Each program name is fixed in the code. The arguments are the transcript's path, the session id and line numbers.
+
+| Program | Command | Why |
+| --- | --- | --- |
+| `find` | `find <config dir>/projects -maxdepth 2 -name <session id>.jsonl` | Locate the transcript, when no hook event has named it yet |
+| `grep` | `grep -n -o -F '"origin":{"kind":"human"}' <transcript>` | Find the lines of the prompts you sent |
+| `wc` | `wc -l <transcript>` | Count the transcript's lines |
+| `sed` | `sed -n '<first>,<last>p' <transcript>` | Read the transcript from your last prompt on, in chunks |
+| `pbcopy`, `powershell`, `wl-copy`, `xclip` | `pbcopy` · `powershell -NoProfile -Command "Set-Clipboard -Value ([Console]::In.ReadToEnd())"` · `wl-copy` · `xclip -selection clipboard` | Clipboard fallback on macOS, Windows, Wayland and X11, tried in that order, only when Claude Code's copy call fails |
+
+**Which events it hooks.** None of them change what passes through.
+
+| Event | What the mod does |
+| --- | --- |
+| `session.start` | Registers the `/copy-latest-replies` command |
+| `classic.SessionStart`, `classic.UserPromptSubmit` | Keeps the transcript path the event carries, and passes the event on unchanged |
+| `turn.start`, `turn.complete` | Hides the button while Claude works on a turn of the main conversation, and shows it again when the turn ends |
+| `command.run`, for `/copy-latest-replies` only | Copies the replies and answers `✓ Copied` or `✗ Nothing copied` |
+| `ui.render`, for `AssistantMessage` | Draws the button under Claude's last reply, and leaves the reply itself as it is |
+
+You can check all of this before installing: `claude plugin validate` on a clone of this repository prints every event the mod hooks and every call it makes.
 
 ## Limits
 
