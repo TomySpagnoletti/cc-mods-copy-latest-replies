@@ -70,7 +70,7 @@ claude plugin install copy-latest-replies@cc-mods-copy-latest-replies
 
 Then start a new session, or run `/reload-plugins`.
 
-**Requirements:** Claude Code v2.1.287 or later in the terminal, or a Desktop app whose Code tab reports v2.1.286 or later in `/status`. Mods are an early-access feature of Claude Code, so a future release may change what they can do.
+**Requirements:** Claude Code v2.1.287 or later in the terminal, or a Desktop app whose Code tab reports v2.1.286 or later in `/status`. Claude Code mods are an early-access feature, so a future release may change what they can do.
 
 ## How it works
 
