@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>One button to copy everything Claude said since your last message.</strong><br>
-  A Claude Code mod for the terminal and the Desktop app · MIT
+  A Claude Code mod for the terminal and the Desktop app · MIT · <a href="#privacy-and-permissions">Privacy</a>
 </p>
 
 <p align="center">
