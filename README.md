@@ -9,6 +9,11 @@
   A Claude Code mod for the terminal and the Desktop app · MIT
 </p>
 
+<p align="center">
+  <img src="docs/button.png" width="350" alt="The Copy latest replies button under Claude's last reply">
+  <img src="docs/button-copied.png" width="350" alt="The same button showing a green check after copying">
+</p>
+
 ## Why
 
 Claude Code now splits a long piece of work into several reply blocks. Each time a subagent sends the session a message, a new block starts, with its own copy button. After a few hours of autonomous work, what Claude told you since your last message can be spread over twenty blocks.
